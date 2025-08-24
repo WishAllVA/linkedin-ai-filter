@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "LinkedIn ChatGPT Filter",
     "description": "Hide, blur, or label posts on LinkedIn that look AI-generated (ChatGPT-style).",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "action": {
         "default_title": "LinkedIn ChatGPT Filter",
         "default_popup": "popup.html"
@@ -17,14 +17,14 @@
         "storage"
     ],
     "content_scripts": [
-    {
-        "matches": [
-            "https://www.linkedin.com/*"
-        ],
-        "js": ["content.js"],
-        "css": ["styles.css"],
-        "run_at": "document_idle"
-    }
+        {
+            "matches": [
+                "https://www.linkedin.com/*"
+            ],
+            "js": ["content.js"],
+            "css": ["styles.css"],
+            "run_at": "document_idle"
+        }
     ],
     "options_page": "options.html"
 }
