@@ -37,9 +37,9 @@ We’ve submitted the extension for review. Once it’s approved, you’ll be ab
 
 ## 🖼️ Screenshots
 <p align="center">
-  <img src="screenshots/screenshot1.png" width="600" />
+  <img src="screenshots/Screenshot1.png" width="600" />
   <br/>
-  <img src="screenshots/screenshot2.png" width="600" />
+  <img src="screenshots/Screenshot2.png" width="600" />
   <br/>
   <em>Blurred & labeled distraction posts in LinkedIn feed</em>
 </p>
