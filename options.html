@@ -4,57 +4,115 @@
   <meta charset="utf-8" />
   <title>LinkedIn ChatGPT Filter – Options</title>
   <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 16px; max-width: 800px; }
-    textarea { width: 100%; height: 180px; }
-    input[type="text"] { width: 100%; }
-    .row { margin: 12px 0; }
-    .hint { font-size: 12px; opacity:.7; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      padding: 24px;
+      max-width: 700px;
+      margin: auto;
+      background: #f9fafb;
+      color: #111;
+    }
+    h2 {
+      margin-bottom: 16px;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .row { margin: 14px 0; }
+    label { font-weight: 500; display: block; margin-bottom: 6px; }
+    textarea, input[type="text"], input[type="number"], select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      background: #fff;
+    }
+    textarea { min-height: 120px; resize: vertical; }
+    .hint {
+      font-size: 12px;
+      opacity: .7;
+      margin-top: 4px;
+    }
+    button {
+      background: #0073b1; /* LinkedIn blue */
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #005983;
+    }
+    #status {
+      margin-left: 12px;
+      font-size: 13px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    #status.show {
+      opacity: 1;
+    }
+    hr { border: none; border-top: 1px solid #ddd; margin: 24px 0; }
   </style>
 </head>
 <body>
-  <h2>LinkedIn ChatGPT Filter - Options</h2>
+  <h2>⚙️ LinkedIn ChatGPT Filter Settings</h2>
 
-  <div class="row">
-    <label><input type="checkbox" id="enabled"> Enable on LinkedIn</label>
-  </div>
+  <div class="card">
+    <div class="row">
+      <label><input type="checkbox" id="enabled"> Enable on LinkedIn</label>
+    </div>
 
-  <div class="row">
-    <label>Mode:
+    <div class="row">
+      <label for="mode">Mode:</label>
       <select id="mode">
         <option value="hide">Hide</option>
         <option value="blur">Blur + Label</option>
         <option value="label">Label only</option>
       </select>
-    </label>
+    </div>
+
+    <div class="row">
+      <label for="threshold">Threshold (pattern hits to flag):</label>
+      <input type="number" id="threshold" min="1" max="10" step="1" />
+      <div class="hint">Increase to be stricter (fewer false positives). Default = 2.</div>
+    </div>
   </div>
 
-  <div class="row">
-    <label>Threshold (pattern hits to flag): <input type="number" id="threshold" min="1" max="10" step="1" /></label>
-    <div class="hint">Increase to be stricter (fewer false positives). Default = 2.</div>
+  <div class="card">
+    <div class="row">
+      <label for="patterns">Detection patterns (one per line):</label>
+      <textarea id="patterns"></textarea>
+      <div class="hint">Example: <code>in today's fast-paced world</code> or <code>i asked (chatgpt|gpt(-\d+)?) to</code></div>
+    </div>
+
+    <div class="row">
+      <label for="whitelist">Whitelist profiles:</label>
+      <textarea id="whitelist" placeholder="e.g. satyanadella&#10;/IN/some-username"></textarea>
+    </div>
   </div>
 
-  <div class="row">
-    <label>Detection patterns (one per line, JavaScript regex without slashes):</label>
-    <textarea id="patterns"></textarea>
-    <div class="hint">Example: <code>in today's fast-paced world</code> or <code>i asked (chatgpt|gpt(-\d+)?) to</code></div>
+  <div class="card">
+    <button id="save">💾 Save Settings</button>
+    <span id="status">Saved!</span>
   </div>
 
-  <div class="row">
-    <label>Whitelist profiles (names or profile URL parts, one per line):</label>
-    <textarea id="whitelist" placeholder="e.g. satyanadella\n/IN/some-username"></textarea>
+  <div class="card">
+    <h3>📂 Backup & Restore</h3>
+    <button id="exportSettings">Export Settings</button>
+    <button id="importSettings">Import Settings</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" />
   </div>
-
-  <div class="row">
-    <button id="save">Save</button>
-    <span id="status" class="hint" style="margin-left:8px"></span>
-  </div>
-
-	<hr>
-	<div>
-		<button id="exportSettings">Export Settings</button>
-		<button id="importSettings">Import Settings</button>
-		<input type="file" id="importFile" accept=".json" style="display:none" />
-	</div>
 
   <script src="options.js"></script>
 </body>
