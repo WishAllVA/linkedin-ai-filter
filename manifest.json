@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "LinkedIn ChatGPT Filter",
     "description": "Hide, blur, or label posts on LinkedIn that look AI-generated (ChatGPT-style).",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "action": {
         "default_title": "LinkedIn ChatGPT Filter",
         "default_popup": "popup.html"
