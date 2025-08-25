@@ -52,3 +52,50 @@ function save() {
 
 document.getElementById('save').addEventListener('click', save);
 document.addEventListener('DOMContentLoaded', load);
+
+document.getElementById("importSettings").addEventListener("click", () => {
+  document.getElementById("importFile").click();
+});
+
+document.getElementById("importFile").addEventListener("change", (event) => {
+  const fileInput = document.getElementById("importFile");
+  const file = fileInput.files[0];
+
+  if (!file) {
+    alert("Please select a file first.");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const importedData = JSON.parse(e.target.result);
+
+      chrome.storage.sync.set(importedData, () => {
+        alert("Settings imported successfully!");
+        location.reload(); // reload options page so fields update
+      });
+    } catch (err) {
+      alert("Invalid JSON file.");
+    }
+  };
+  reader.readAsText(file);
+});
+
+document.getElementById("exportSettings").addEventListener("click", () => {
+  chrome.storage.local.get(null, (localData) => {
+    chrome.storage.sync.get(null, (syncData) => {
+      const allData = { ...localData, ...syncData };
+
+      const jsonStr = JSON.stringify(allData, null, 2);
+      const blob = new Blob([jsonStr], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "linkedin-ai-filter-settings.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  });
+});
